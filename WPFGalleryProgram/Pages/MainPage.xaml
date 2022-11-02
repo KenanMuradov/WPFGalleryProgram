@@ -17,32 +17,22 @@
             <MenuItem
     Header="_File">
                 <MenuItem
+                    Name="BtnSave"
       Header="Save"
-      Icon="{materialDesign:PackIcon Kind=ContentSave}"></MenuItem>
+      Icon="{materialDesign:PackIcon Kind=ContentSave}" Click="BtnSave_Click"></MenuItem>
                 <MenuItem
-      Header="Save As.." />
+                    Name="BtnSaveAs"
+      Header="Save As.."  Click="BtnSave_Click"/>
                 <Separator />
 
                 <MenuItem
-      Header="Exit"
-      InputGestureText="Ctrl+E"
-      Icon="{materialDesign:PackIcon Kind=ExitToApp}" />
+                    Name="OpenFile"
+      Header="Open File" Click="OpenFile_Click"></MenuItem>
+                <MenuItem
+                    Name="OpenFolder"
+      Header="Open Folder" Click="OpenFolder_Click" />
             </MenuItem>
-            <MenuItem
-    Header="_Edit">
-                <MenuItem
-      Header="_Cut"
-      Command="Cut"
-      Icon="{materialDesign:PackIcon Kind=ContentCut}" />
-                <MenuItem
-      Header="_Copy"
-      Command="Copy"
-      Icon="{materialDesign:PackIcon Kind=ContentCopy}" />
-                <MenuItem
-      Header="_Paste"
-      Command="Paste"
-      Icon="{materialDesign:PackIcon Kind=ContentPaste}" />
-            </MenuItem>
+            
         </Menu>
 
 
@@ -56,7 +46,7 @@
                  MouseDoubleClick="lbx_MouseDoubleClick">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <UniformGrid/>
+                    <WrapPanel Orientation="Horizontal" />
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
         </ListBox>
