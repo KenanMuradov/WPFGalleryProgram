@@ -2,7 +2,9 @@
 using Ookii.Dialogs.Wpf;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,16 +15,47 @@ using System.Windows.Navigation;
 
 namespace WPFGalleryProgram.Pages
 {
-    public partial class MainPage : Page
+    public partial class MainPage : Page, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string? name = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+
         public List<ImageSource> ImageSources { get; set; }
+
+        private int rows = 3;
+
+        public int Rows
+        {
+            get { return rows; }
+            set
+            {
+                rows = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private int columns = 3;
+
+        public int Columns
+        {
+            get { return rows; }
+            set
+            {
+                rows = value;
+                OnPropertyChanged();
+            }
+        }
 
         public MainPage()
         {
             InitializeComponent();
 
+            DataContext = this;
+
             ImageSources = new();
         }
+
 
         private void lbx_DragOver(object sender, DragEventArgs e)
         {
@@ -72,9 +105,15 @@ namespace WPFGalleryProgram.Pages
 
                 ImageSources.Add(image.Source);
 
+                if (lbx.Items.Count > (Rows * Columns))
+                    ++Rows;
+
             }
 
+            
+
         }
+
 
         private void lbx_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -113,6 +152,7 @@ namespace WPFGalleryProgram.Pages
 
         }
 
+
         private void OpenFolder_Click(object sender, RoutedEventArgs e)
         {
             VistaFolderBrowserDialog dialog = new();
@@ -132,10 +172,6 @@ namespace WPFGalleryProgram.Pages
                         var image = new Image()
                         {
                             Source = new BitmapImage(new Uri(file.FullName)),
-                            Width = 100,
-                            Height = 100,
-                            MinHeight = 70,
-                            MinWidth = 70,
                             Stretch = Stretch.Uniform
                         };
 
@@ -150,5 +186,18 @@ namespace WPFGalleryProgram.Pages
         }
 
         private void BtnSave_Click(object sender, RoutedEventArgs e) => MessageBox.Show("Will Be Updated Soon");
+
+        private void BtnView_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem item)
+            {
+                Columns = item.Header switch
+                {
+                    "Medium Icons" => 7,
+                    "Small Icons" => 10,
+                    _ => 3
+                };
+            }
+        }
     }
 }

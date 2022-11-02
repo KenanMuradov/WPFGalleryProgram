@@ -32,6 +32,16 @@
                     Name="OpenFolder"
       Header="Open Folder" Click="OpenFolder_Click" />
             </MenuItem>
+
+            <MenuItem
+    Header="View">
+                <MenuItem
+      Header="Small Icons" Click="BtnView_Click"></MenuItem>
+                <MenuItem
+      Header="Medium Icons" Click="BtnView_Click" />
+                <MenuItem
+      Header="Big Icons" Click="BtnView_Click" />
+            </MenuItem>
             
         </Menu>
 
@@ -46,7 +56,7 @@
                  MouseDoubleClick="lbx_MouseDoubleClick">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Horizontal" />
+                    <UniformGrid Columns="{Binding Columns}" Rows="{Binding Rows}"/>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
         </ListBox>
