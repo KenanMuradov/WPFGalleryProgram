@@ -17,7 +17,7 @@ using System.Windows.Shapes;
 
 namespace WPFGalleryProgram.Pages;
 
-public partial class PhotoPage : Page,INotifyPropertyChanged
+public partial class PhotoPage : Page, INotifyPropertyChanged
 {
 
     private ImageSource _currentImageSource;
@@ -31,8 +31,8 @@ public partial class PhotoPage : Page,INotifyPropertyChanged
     public ImageSource CurrentImageSource
     {
         get { return _currentImageSource; }
-        set 
-        { 
+        set
+        {
             _currentImageSource = value;
             OnPropertyChanged();
         }
@@ -67,12 +67,15 @@ public partial class PhotoPage : Page,INotifyPropertyChanged
     {
         var index = ImageSources.IndexOf(CurrentImageSource);
 
-        if (index -1 >= 0)
+        if (index - 1 >= 0)
         {
             CurrentImageSource = ImageSources[index - 1];
             return;
         }
 
-        CurrentImageSource = ImageSources[ImageSources.Count-1];
+        CurrentImageSource = ImageSources[ImageSources.Count - 1];
     }
+
+    private void BtnBack_Click(object sender, RoutedEventArgs e) => NavigationService.GoBack();
+
 }

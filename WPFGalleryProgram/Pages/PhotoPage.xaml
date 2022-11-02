@@ -11,14 +11,28 @@
     <Grid Name="grid" Background="White">
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
             <RowDefinition/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
-        <Image Source="{Binding CurrentImageSource}"></Image>
+        <StackPanel Orientation="Horizontal">
+            <Button
+                Name="BtnBack"
+                DockPanel.Dock="Left"
+                Width="40" Height="40"  
+                Style="{StaticResource MaterialDesignFloatingActionSecondaryButton}"
+                ToolTip="MaterialDesignFloatingActionSecondaryButton" Click="BtnBack_Click">
+                <materialDesign:PackIcon
+    Kind="ArrowBack" />
+            </Button>
+        </StackPanel>
+        
+
+        <Image Grid.Row="1" Source="{Binding CurrentImageSource}"></Image>
 
 
-        <DockPanel Grid.Row="1" Width="250" >
+        <DockPanel Grid.Row="2" Width="250" >
             <Button
                 Name="BtnBackward"
                 DockPanel.Dock="Left"
